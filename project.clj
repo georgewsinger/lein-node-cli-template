@@ -1,9 +1,13 @@
-(defproject dot-drop "0.1.0-SNAPSHOT"
-  :description "FIXME: write this"
-  :url         "http://fix.me"
+(defproject dot-drop "0.0.1-SNAPSHOT" ; "SNAPSHOT" is a maven term; it means "development version", and is contrasted with "release"
 
+  :description "N/A" ; searchable from Clojars
+  :url         "N/A" ; searchable from Clojars
+
+  ;; this project would show up as MIT licensed in Clojars
   :license {:name "MIT"
             :url  "http://opensource.org/licenses/MIT"}
+
+  ;; Maven, Clojars dependencies
   :dependencies [[org.clojure/clojure       "1.8.0"]
                  [org.clojure/clojurescript "1.7.228"]
                  [com.cemerick/piggieback "0.2.1"]
