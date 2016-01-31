@@ -1,72 +1,88 @@
-(defproject dot-drop "0.0.1-SNAPSHOT" ; "SNAPSHOT" is a maven term; it means "development version", and is contrasted with "release"
+(defproject {{name}} "0.0.1-SNAPSHOT" ; "SNAPSHOT" is a maven term; it means "development version", and is contrasted with "release"
 
-  :description "N/A" ; searchable from Clojars
-  :url         "N/A" ; searchable from Clojars
-
-  ;; this project would show up as MIT licensed in Clojars
-  :license {:name "MIT"
-            :url  "http://opensource.org/licenses/MIT"}
+  ;; searchable Clojars fields
+  :description "N/A" 
+  :url         "N/A" 
+  :license     {:name "MIT"
+                :url  "http://opensource.org/licenses/MIT"}
 
   ;; Maven, Clojars dependencies
-  :dependencies [[org.clojure/clojure       "1.8.0"]
+  :dependencies [[org.clojure/clojure       "1.8.0"  ]
                  [org.clojure/clojurescript "1.7.228"]
-                 [com.cemerick/piggieback "0.2.1"]
-                 [org.clojure/tools.nrepl "0.2.10"]
-                 [org.clojure/core.async "0.2.374"]]
+                 [org.clojure/core.async    "0.2.374"] ; cljs.core.async lives here
+                 [org.clojure/tools.nrepl   "0.2.10" ] ; non-teletype repl; needed for vim-fireplace
+                 [com.cemerick/piggieback   "0.2.1"  ]] ; nrepl piggieback middleware & also needed for vim-fireplace
 
-  :npm {:dependencies [[minimist "1.2.0"]
-                       [expand-home-dir "0.0.2"]]
+  ;; lein specific plugins
+  :plugins      [[org.bodil/lein-noderepl "0.1.11"] ; required to launch the node repl
+                 [lein-cljsbuild           "1.1.2"] ; required to compile cljs to js
+                 [lein-npm                 "0.6.1"] ; lein interface with npm (see below)
+                 [lein-doo                 "0.1.6"]] ; the current "standard" testing framework
+
+  ;; Needed for nREPL/piggieback/vim-fireplace
+  :profiles { :dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
+                                   [org.clojure/tools.nrepl "0.2.10"]]
+
+                    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
+
+  :npm { ;; package.json npm dependencies
+         :dependencies [[minimist        "1.2.0"]] ; minimist parses CLI arguments
         
-        :package {:name "drop-dot"
-                        :version "0.0.2"
-                        :bin "lib/drop-dot.js"
-                        :description "CLI utility to sync config files, dot files, and directories across UNIX machines using Dropbox."
-                        :main "lib/drop-dot.js"
-                        :repository {:type "git" :url "git+https://github.com/georgewsinger/drop-dot.git"}
-                        :keywords ["dropbox" "sync" "config" "dot" "dotfile"]
-                        :author "George Singer"
-                        :license "MIT"
-                        :private false
-                        :homepage "https://github.com/georgewsinger/drop-dot#readme"}}
+         ;; every time you run a "lein npm <cmd>", lein-npm uses the fields below to assemble a temporary package.json
+         :package      { :name "{{name}}"
+                         :version "0.0.1" ; you must update this manually; `lein npm version` doesn't seem to do it
+                         :bin "target/{{name}}.js" ; we target the cljsbuild :main profile from below
+                         :description "N/A"
+                         :main "target/{{name}}.js" ; we target the cljsbuild :main profile from below
+                         :repository {:type "git" :url "git+https://github.com/georgewsinger/{{name}}.git"}
+                         :keywords ["clojure" "clojurescript" "CLI" "utility"]
+                         :author "George Singer"
+                         :license "MIT"
+                         :private false
+                         :homepage "https://github.com/georgewsinger/{{name}}#readme"}}
 
-  :plugins [[org.bodil/lein-noderepl "0.1.11"]
-            [lein-cljsbuild           "1.1.2"]
-            [lein-npm                 "0.6.1"]
-            [lein-repls               "1.9.5"]
-            [lein-doo                 "0.1.6"]]
-
-  ;:hooks [leiningen.cljsbuild]
-
-  :profiles {
-    :dev {
-      :dependencies [[com.cemerick/piggieback "0.2.1"]
-                     [org.clojure/tools.nrepl "0.2.10"]]
-
-      :repl-options {
-        :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
-
-  :cljsbuild {
-    :builds {
-      :main {
-        :source-paths ["src"]
-        :compiler {
-        :optimizations :advanced
-        :target        :nodejs
-        :output-dir    "out"
-        :output-to     "lib/drop-dot.js"
-        :externs       ["externs.js"]
-        :verbose       true
-        :pretty-print  true }}
-
-      :node-test {
-        :source-paths ["src" "test"]
-        :compiler {
-        :optimizations :none
-        :target        :nodejs
-        :output-dir    "out-test"
-        :output-to     "lib/testable.js"
-        :externs       ["externs1.js"]
-        :verbose       true
-        :main          drop-dot.runner
-        :pretty-print  true }}
-}})
+  :cljsbuild { :builds { ;; main is the default cljsbuild profile, marked by its use of the :advanced compilation mode
+                         :main {
+                           :source-paths ["src"]
+                           :compiler { :optimizations :advanced
+                                       :target        :nodejs
+                                       :output-dir    "out-advanced"
+                                       :output-to     "target/{{drop-dot}}.js"
+                                       :externs       ["externs.js"]
+                                       :verbose       true
+                                       :pretty-print  true }}
+                   
+                         ;; on the other end of the spectrum is "none", named for its compilation mode
+                         :none {
+                           :source-paths ["src"]
+                           :compiler { :optimizations :none
+                                       :target        :nodejs
+                                       :output-dir    "out-none"
+                                       :output-to     "target/{{drop-dot}}-none.js"
+                                       :externs       ["externs.js"]
+                                       :verbose       true
+                                       :pretty-print  true }}
+                   
+                         ;; lein doo uses this profile
+                         :none-test {
+                           :source-paths ["src" "test"] ; note the added "test" directory
+                           :compiler { :optimizations :none
+                                       :target        :nodejs
+                                       :output-dir    "out-none-test"
+                                       :output-to     "target/{{name}}-none-test.js"
+                                       :externs       ["externs.js"]
+                                       :verbose       true
+                                       :main          {{name}}.runner
+                                       :pretty-print  true }}
+ 
+                         ;; lein doo uses this profile
+                         :advanced-test {
+                           :source-paths ["src" "test"] ; note the added "test" directory
+                           :compiler { :optimizations :advanced
+                                       :target        :nodejs
+                                       :output-dir    "out-advanced-test"
+                                       :output-to     "target/{{name}}-advanced-test.js"
+                                       :externs       ["externs.js"]
+                                       :verbose       true
+                                       :main          {{name}}.runner
+                                       :pretty-print  true }}}})
