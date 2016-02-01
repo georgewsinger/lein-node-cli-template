@@ -47,7 +47,7 @@
                            :compiler { :optimizations :advanced
                                        :target        :nodejs
                                        :output-dir    "out-advanced"
-                                       :output-to     "target/{{drop-dot}}.js"
+                                       :output-to     "target/{{name}}.js"
                                        :externs       ["externs.js"]
                                        :verbose       true
                                        :pretty-print  true }}
@@ -58,7 +58,7 @@
                            :compiler { :optimizations :none
                                        :target        :nodejs
                                        :output-dir    "out-none"
-                                       :output-to     "target/{{drop-dot}}-none.js"
+                                       :output-to     "target/{{name}}-none.js"
                                        :externs       ["externs.js"]
                                        :verbose       true
                                        :pretty-print  true }}

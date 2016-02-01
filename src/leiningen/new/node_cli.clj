@@ -9,10 +9,14 @@
               :sanitized (name-to-path name)}]
     (->files data
       ["project.clj" (render "project.clj" data)]
+
+      ["index.js" (render "index.js" data)]
+      ["externs.js" (render "externs.js" data)]
+
       ["src/{{sanitized}}/core.cljs" (render "core.cljs" data)]
 
       ["test/{{sanitized}}/core_test.cljs" (render "core_test.cljs" data)]
-      ["test/{{sanitized}}/runner.clj" (render "runner.clj" data)]
+      ["test/{{sanitized}}/runner.cljs" (render "runner.cljs" data)]
 
       ["README.md" (render "README.md" data)]
       [".gitignore" (render "gitignore" data)]
@@ -22,13 +26,12 @@
       ["scripts/repl" (render "repl" data) :executable true]
       ["scripts/repl.clj" (render "repl.clj" data)]
 
-      ["scripts/watch-advanced" (render "watch" data) :executable true]
-      ["scripts/watch-advanced.clj" (render "watch.clj" data)]
+      ["scripts/watch-advanced" (render "watch-advanced" data) :executable true]
       ["scripts/watch-none" (render "watch-none" data) :executable true]
-      ["scripts/watch-none.clj" (render "watch-none.clj" data)]
 
       ["scripts/build-advanced" (render "build-advanced" data) :executable true]
-      ["scripts/build-advanced.clj" (render "build-advanced.clj" data)]
       ["scripts/build-none" (render "build-none" data) :executable true]
-      ["scripts/build-none.clj" (render "build-none.clj" data)]
+
+      ["scripts/test-advanced" (render "test-advanced" data) :executable true]
+      ["scripts/test-none" (render "test-none" data) :executable true]
 )))
