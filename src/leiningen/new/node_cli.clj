@@ -19,7 +19,7 @@
       ["test/{{sanitized}}/runner.cljs" (render "runner.cljs" data)]
 
       ["src/cljs_callback_heaven/core.cljs" (render "cb-heaven-core.cljs" data)]
-      ["src/cljs_callback_heaven/macros.cljs" (render "cb-heaven-macros.clj" data)]
+      ["src/cljs_callback_heaven/macros.clj" (render "cb-heaven-macros.clj" data)]
 
       ["README.md" (render "README.md" data)]
       [".gitignore" (render "gitignore" data)]
