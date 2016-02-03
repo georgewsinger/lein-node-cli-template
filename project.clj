@@ -1,4 +1,4 @@
-(defproject node-cli/lein-template "0.0.1"
+(defproject node-cli/lein-template "0.0.2"
   :description "A ClojureScript node.js project template geared towards CLI scripting."
 
   :url "http://github.com/georgewsinger/lein-node-cli-template"
