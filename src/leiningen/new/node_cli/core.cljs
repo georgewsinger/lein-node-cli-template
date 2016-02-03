@@ -1,6 +1,8 @@
 (ns {{name}}.core (:require        [cljs.nodejs              :as            node]
-                                   [cljs.core.async          :refer        [buffer offer! poll! close! take! put! chan <! >! alts!]])
-                  (:require-macros [cljs.core.async.macros   :refer        [go go-loop]]))
+                                   [cljs.core.async          :refer        [buffer offer! poll! close! take! put! chan <! >! alts!]]
+                                   [cljs-callback-heaven.core :refer       [>? >1 >2 >3 <print]])
+                  (:require-macros [cljs.core.async.macros   :refer        [go go-loop]]
+                                   [cljs-callback-heaven.macros :refer     [<? <1 <2 <3]]))
 
 (node/enable-util-print!) ; allows (println ..) to print to console.log
 
