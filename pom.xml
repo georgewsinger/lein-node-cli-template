@@ -3,7 +3,7 @@
   <groupId>node-cli</groupId>
   <artifactId>lein-template</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>lein-template</name>
   <description>A ClojureScript node.js project template geared towards CLI scripting.</description>
   <url>http://github.com/georgewsinger/lein-node-cli-template</url>
