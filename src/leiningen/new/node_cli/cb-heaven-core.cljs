@@ -8,7 +8,7 @@
 (ns cljs-callback-heaven.core (:require        [cljs.nodejs :as node]
                                                [cljs.core.async :refer [buffer offer! poll! close! take! put! chan <! >! alts!]])
                               (:require-macros [cljs.core.async.macros :refer [go go-loop]]
-                                               [cljs-callback-heaven.macros :refer [<? <1 <2 <3]]))
+                                               [cljs-callback-heaven.macros :refer [<? <cb? <cb1 <cb2 <cb3]]))
 
 (node/enable-util-print!)
 (defn <print [c]
