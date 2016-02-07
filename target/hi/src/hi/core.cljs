@@ -1,10 +1,12 @@
-(ns {{name}}.core (:require        [cljs.nodejs              :as            node]
+(ns hi.core (:require        [cljs.nodejs              :as            node]
                                    [cljs.core.async          :refer        [buffer offer! poll! close! take! put! chan <! >! alts!]]
-                                   [cljs-callback-heaven.core :refer       [cb>? cb>1 cb>2 cb>3 <print]])
+                                   [cljs-callback-heaven.core :refer       [>? >1 >2 >3 <print]])
                   (:require-macros [cljs.core.async.macros   :refer        [go go-loop]]
                                    [cljs-callback-heaven.macros :refer     [<? <cb? <cb1 <cb2 <cb3]]))
 
 (node/enable-util-print!) ; allows (println ..) to print to console.log
+
+;(<print (<cb2 (.readFile (nodejs/require "fs") "/home/george/1" "utf8" _ )))
 
 (defn -main [& args]
   (let [minimist (cljs.nodejs/require "minimist")
