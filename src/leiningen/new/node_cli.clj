@@ -37,4 +37,6 @@
 
       ["scripts/test-advanced" (render "test-advanced" data) :executable true]
       ["scripts/test-none" (render "test-none" data) :executable true]
+
+      ["scripts/tmuxomatic-session" (render "tmuxomatic-session" data)]
 )))

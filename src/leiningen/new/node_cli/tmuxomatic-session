@@ -1,0 +1,39 @@
+window core
+
+VVVVVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVV
+TTTTTTTTTTTTTTTTTTTT
+
+  foc                     # Only three 3-letter commands: Focus, Directory, Run
+V run vim -c 'edit src/{{sanitized}}/core.cljs|vsplit test/{{sanitized}}/core_test.cljs|tabedit externs.js|vsplit src/{{sanitized}}/core.cljs|tabedit TODO|tabfirst'
+T run ./scripts/test-none
+V foc
+
+window build-none
+
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+
+W run ./scripts/watch-none
+N run echo 'node index.js'
+N foc
+
+window build-advanced
+
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+WWWWWWWWWWNNNNNNNNNN
+
+W run ./scripts/watch-advanced
+N run echo 'node target/{{name}}.js'
+N foc
